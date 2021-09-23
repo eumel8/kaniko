@@ -15,7 +15,7 @@ jobs:
       - name: build
         run: |
           export TAG=`git describe --match=$(git rev-parse --short=8 HEAD) --always --dirty --abbrev=8`
-          docker build -f deploy/Dockerfile_debug .
+          make images
           docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}" mtr.external.otc.telekomcloud.com
           docker images
           #docker tag rancher/klipper-lb:${TAG} mtr.external.otc.telekomcloud.com/eumel8/kaniko:debug
