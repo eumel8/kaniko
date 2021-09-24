@@ -14,8 +14,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: build
         run: |
+          go mod edit --replace github.com/google/go-containerregistry@v0.4.1-0.20210128200529-19c2b639fab1=github.com/google/go-containerregistry@v0.5.1
           export TAG=`git describe --match=$(git rev-parse --short=8 HEAD) --always --dirty --abbrev=8`
-          docker build -f deploy/Dockerfile_debug -t executor:debug .
+          docker build -f deploy/Dockerfile_debug -t executor:mtr-0.5.1 .
           docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}" mtr.external.otc.telekomcloud.com
           docker images
           #docker tag rancher/klipper-lb:${TAG} mtr.external.otc.telekomcloud.com/eumel8/kaniko:debug
