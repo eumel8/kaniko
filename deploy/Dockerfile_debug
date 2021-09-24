@@ -63,15 +63,10 @@ FROM scratch
 # add RUN trues here to prevent layer does not exists error
 # https://github.com/moby/moby/issues/37965
 COPY --from=0 /go/src/github.com/GoogleContainerTools/kaniko/out/* /kaniko/
-RUN true
 COPY --from=0 /go/src/github.com/GoogleContainerTools/kaniko/out/warmer /kaniko/warmer
-RUN true
 COPY --from=0 /usr/local/bin/docker-credential-gcr /kaniko/docker-credential-gcr
-RUN true
 COPY --from=0 /go/src/github.com/awslabs/amazon-ecr-credential-helper/bin/local/docker-credential-ecr-login /kaniko/docker-credential-ecr-login
-RUN true
 COPY --from=0 /go/src/github.com/chrismellard/docker-credential-acr-env/build/docker-credential-acr-env /kaniko/docker-credential-acr
-RUN true
 COPY --from=busybox:1.32.0 /bin /busybox
 
 # Declare /busybox as a volume to get it automatically in the path to ignore
